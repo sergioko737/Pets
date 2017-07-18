@@ -57,6 +57,13 @@ public class CatalogActivity extends AppCompatActivity {
         displayDatabaseInfo();
     }
 
+    // Update database info of reentering activity
+    @Override
+    protected void onStart(){
+        super.onStart();
+        displayDatabaseInfo();
+    }
+
     /**
      * Temporary helper method to display information in the onscreen TextView about the state of
      * the pets database.
