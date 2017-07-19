@@ -59,7 +59,7 @@ public class CatalogActivity extends AppCompatActivity {
 
     // Update database info of reentering activity
     @Override
-    protected void onStart(){
+    protected void onStart() {
         super.onStart();
         displayDatabaseInfo();
     }
@@ -71,10 +71,10 @@ public class CatalogActivity extends AppCompatActivity {
     private void displayDatabaseInfo() {
 
         // Create and/or open a database to read from it
-        SQLiteDatabase db = mDbHelper.getReadableDatabase();
+        // SQLiteDatabase db = mDbHelper.getReadableDatabase();
 
         // Define projection
-        String [] project = {
+        String[] projection = {
                 PetEntry._ID,
                 PetEntry.COLUMN_PET_NAME,
                 PetEntry.COLUMN_PET_BREED,
@@ -82,14 +82,14 @@ public class CatalogActivity extends AppCompatActivity {
                 PetEntry.COLUMN_PET_WEIGHT
         };
 
-        Cursor cursor = db.query(
-                PetEntry.TABLE_NAME,
-                project,
-                null,
-                null,
-                null,
-                null,
-                null);
+        // Perform a query on the provider using the ContentResolver.
+        // Use the {@link PetEntry#CONTENT_URI} to access the pet data.
+        Cursor cursor = getContentResolver().query(
+                PetEntry.CONTENT_URI,   // The content URI of the words table
+                projection,             // The columns to return for each row
+                null,                   // Selection criteria
+                null,                   // Selection criteria
+                null);                  // The sort order for the returned rows
 
         TextView displayView = (TextView) findViewById(R.id.text_view_pet);
         try {
@@ -116,7 +116,7 @@ public class CatalogActivity extends AppCompatActivity {
             int weightColumnIndex = cursor.getColumnIndex(PetEntry.COLUMN_PET_WEIGHT);
 
             // Iterate through all the returned rows in the cursor
-            while (cursor.moveToNext()){
+            while (cursor.moveToNext()) {
                 // Use that index to extract the String or Int value of the word
                 // at the current row the cursor is on.
                 int currentID = cursor.getInt(idColumnIndex);
