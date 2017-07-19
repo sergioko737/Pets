@@ -9,6 +9,10 @@ import android.provider.BaseColumns;
 
 public final class PetContract {
 
+    // Empty constructor to prevent instantiation
+    private PetContract() {
+    }
+
     /**
      * The "Content authority" is a name for the entire content provider, similar to the
      * relationship between a domain name and its website.  A convenient string to use for the
@@ -31,17 +35,13 @@ public final class PetContract {
      */
     public static final String PATH_PETS = "pets";
 
-    public static final Uri CONTENT_URI = Uri.withAppendedPath(BASE_CONTENT_URI, PATH_PETS);
-
-    // prevent instantiation
-    private PetContract() {
-    }
-
-    ;
 
     // Inner class that defines constant values for the pets database table.
     // Each entry in the table represents a single pet.
     public static class PetEntry implements BaseColumns {
+
+        /** The content URI to access the pet data in the provider */
+        public static final Uri CONTENT_URI = Uri.withAppendedPath(BASE_CONTENT_URI, PATH_PETS);
 
         /**
          * Name of database table for pets
